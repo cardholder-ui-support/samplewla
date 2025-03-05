@@ -1,0 +1,15 @@
+workflows:
+  deploy:
+    steps:
+    - activate-ssh-key@4: {}
+    - git-clone@6: {}
+    - npm@1:
+        inputs:
+        - command: install
+    - run-expo-eas-build@1:
+        inputs:
+        - expo_username: "$EXPO_USERNAME"
+        - expo_password: "$EXPO_PASSWORD"
+        - platform: ios
+        - profile: production
+    - deploy-to-bitrise-io@2: {}
